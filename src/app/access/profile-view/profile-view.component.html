@@ -1,0 +1,208 @@
+<app-header></app-header>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-3 left-side">
+            <div class="left-view">
+                <div class="text-center">
+                    <img [src]="imageUrl" alt="_userprofile" class="img-responsive rounded-circle" width="150" height="150">
+                </div>
+                <div class="left-profile text-center mt-3">
+                    <span class="mt-3">{{ userItem.middlename }} {{ userItem.firstname }}</span>
+                    <p class="mt-3">{{ userItem.email }}</p>
+                    <button class="btn btn-action-change" type="submit" *ngIf="!isChangeProfile" (click)="onCancelUpload(true)">
+                        <span><i class="fa fa-pencil-square" aria-hidden="false"></i></span>
+                        <span class="ml-2">Change Profile</span>
+                    </button>
+                    <div class="form-group input-group" *ngIf="isChangeProfile">
+                        <input type="file" class="form-control" name="filename" id="fileid" #fileName (change)="onSelectFile($event)">
+                        <button class="btn btn-action-close ml-2" type="submit" (click)="resetFileForm()">
+                            <span><i class="fa fa-undo" aria-hidden="false"></i></span>
+                        </button>
+                    </div>
+                    <div class="form-group input-group justify-content-center" *ngIf="isChangeProfile">
+                        <button class="btn btn-action-upload" type="submit" [disabled]="false" (click)="onUploadFile()">
+                            <span><i class="fa fa-upload" aria-hidden="false"></i></span>
+                            <span class="ml-2">Upload</span>
+                        </button>
+                        <button class="btn btn-action-cancel ml-2" type="submit" (click)="onCancelUpload(false)">
+                            <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                            <span class="ml-2">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="right-view">
+                <div class="title-one d-flex justify-content-between align-items-baseline">
+                    <span>Personal Info</span>
+                    <!-- <span>
+                        <button class="btn btn-action-edit" (click)="onUpdateUser()">
+                            <i class="fa fa-pencil-square-o" aria-hidden="false"></i><span class="ml-2">Update User</span>
+                        </button>
+                    </span> -->
+                    <span>
+                        <button class="btn btn-action-edit" (click)="onEditProfileAll(true)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="false"></i><span class="ml-2">Edit All</span>
+                        </button>
+                        <button class="btn btn-action-close ml-2" type="submit" [disabled]="isUpdate.includes(false)" (click)="onEditProfileAll(false)">
+                            <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                        </button>
+                    </span>
+                </div>
+                <div class="first-row mt-5 d-flex justify-content-between align-items-center">
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-one">
+                            <span><i class="fa fa-user"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>First name</span>
+                            <p *ngIf="!isUpdate[0]">{{ userItem.firstname ? userItem.firstname : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(0, true, userItem.firstname)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[0]">
+                                <input type="text" class="form-control" name="firstName" id="firstNameid" [(ngModel)]="userInputValue[0]" #firstName="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[0] || firstName.invalid" (click)="updateUserData(0, false, {firstname:userInputValue[0]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(0, false, userItem.firstname)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-one">
+                            <span><i class="fa fa-user-o"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Middle name</span>
+                            <p *ngIf="!isUpdate[1]">{{ userItem.middlename ? userItem.middlename : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(1, true, userItem.middlename)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[1]">
+                                <input type="text" class="form-control" name="middleName" id="middleNameid" [(ngModel)]="userInputValue[1]" #middleName="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[1] || middleName.invalid" (click)="updateUserData(1, false, {middlename:userInputValue[1]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(1, false, userItem.middlename)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-one">
+                            <span><i class="fa fa-user"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Last name</span>
+                            <p *ngIf="!isUpdate[2]">{{ userItem.lastname ? userItem.lastname : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(2, true, userItem.lastname)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[2]">
+                                <input type="text" class="form-control" name="lastName" id="lastNameid" [(ngModel)]="userInputValue[2]" #lastName="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[2] || lastName.invalid" (click)="updateUserData(2, false, {lastname:userInputValue[2]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(2, false, userItem.lastname)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="second-row mt-5 d-flex justify-content-between align-items-center">
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-two">
+                            <span><i class="fa fa-user-circle"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>User name</span>
+                            <p *ngIf="!isUpdate[3]">{{ userItem.username ? userItem.username : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(3, true, userItem.username)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[3]">
+                                <input type="text" class="form-control" name="userName" id="usernameid" [(ngModel)]="userInputValue[3]" #userName="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[3] || userName.invalid" (click)="updateUserData(3, false, {username:userInputValue[3]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(3, false, userItem.username)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-two">
+                            <span><i class="fa fa-envelope"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Email Address</span>
+                            <p *ngIf="!isUpdate[4]">{{ userItem.email ? userItem.email : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(4, true, userItem.email)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[4]">
+                                <input type="email" class="form-control" name="emailname" id="emailid" [(ngModel)]="userInputValue[4]" #emailname="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[4] || emailname.invalid" (click)="updateUserData(4, false, {email:userInputValue[4]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(4, false, userItem.email)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-two">
+                            <span><i class="fa fa-calendar"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Date of Birth</span>
+                            <p *ngIf="!isUpdate[5]">{{ userItem.date_of_birth ? (userItem.date_of_birth | date) : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(5, true, userItem.date_of_birth)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[5]">
+                                <input type="text" class="form-control" name="dobName" id="numid" [(ngModel)]="userInputValue[5]" #dobName="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[5] || dobName.invalid" (click)="updateUserData(5, false, {date_of_birth:userInputValue[5]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(5, false, userItem.date_of_birth)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="third-row mt-5 d-flex justify-content-between align-items-center">
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-three">
+                            <span><i class="fa fa-phone"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Mobile number</span>
+                            <p *ngIf="!isUpdate[6]">{{ userItem.mobile ? userItem.mobile : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(6, true, userItem.mobile)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[6]">
+                                <input type="number" class="form-control" name="phonenum" id="numid" [(ngModel)]="userInputValue[6]" #phonenum="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[6] || phonenum.invalid" (click)="updateUserData(6, false, {mobile:userInputValue[6]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(6, false, userItem.mobile)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                        <div class="btn btn-three">
+                            <span><i class="fa fa-address-card"></i></span>
+                        </div>
+                        <div class="info ml-2">
+                            <span>Address</span>
+                            <p *ngIf="!isUpdate[7]">{{ userItem.address ? userItem.address : 'Not Available' }} <span class="ml-2" (click)="onEditProfile(7, true, userItem.address)"><i class="fa fa-pencil" aria-hidden="false"></i></span></p>
+                            <div class="form-group input-group edit-input" *ngIf="isUpdate[7]">
+                                <input type="text" class="form-control" name="addressname" id="addressid" [(ngModel)]="userInputValue[7]" #addressname="ngModel">
+                                <button class="btn btn-action-update" type="submit" [disabled]="!userInputValue[7] || addressname.invalid" (click)="updateUserData(7, false, {address:userInputValue[7]})">
+                                    <span><i class="fa fa-check" aria-hidden="false"></i></span>
+                                </button>
+                                <button class="btn btn-action-close ml-2" type="submit" (click)="onEditProfile(7, false, userItem.address)">
+                                    <span><i class="fa fa-close" aria-hidden="false"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group input-group">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

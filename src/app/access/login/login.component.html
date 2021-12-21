@@ -1,0 +1,47 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <span class="login-title">User Login</span>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group input-group d-flex align-items-center">
+                <input type="text" class="form-control email-input" name="emailname" id="emailid" placeholder="Type email" minlength="1" maxlength="50" autocomplete="off" [(ngModel)]="userEmail" #emailname="ngModel" required>
+                <button class="btn btn-action-email" type="button">
+                    <span><i class="fa fa-envelope" aria-hidden="false"></i></span>
+                </button>
+            </div>
+            <span class="error-msg" *ngIf="emailname?.invalid && (emailname?.dirty || emailname?.touched)">
+                <span *ngIf="emailname?.errors.required">Email is required.</span>
+            </span>
+        </div>
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group input-group d-flex align-items-center">
+                <input type="password" class="form-control password-input" name="pwdname" id="pwdid" placeholder="Type password" minlength="1" maxlength="50" autocomplete="off" [(ngModel)]="userPassword" #pwdname="ngModel" required>
+                <button class="btn btn-action-pwd" type="button">
+                    <span><i class="fa fa-lock" aria-hidden="false"></i></span>
+                </button>
+            </div>
+            <span class="error-msg" *ngIf="pwdname?.invalid && (pwdname?.dirty || pwdname?.touched)">
+                <span *ngIf="pwdname?.errors.required">Password is required.</span>
+            </span>
+        </div>
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group input-group d-flex justify-content-between align-items-center">
+                <button class="btn btn-action-login" type="submit" [disabled]="setLoginFormValidation()" (click)="userLoginData()">
+                    <span><i class="fa fa-sign-in" aria-hidden="false"></i></span>
+                    <span class="ml-2">Login</span>
+                </button>
+                <a class="forgot-pwd-link">Forgot Password?</a>
+            </div>
+        </div>
+        <div class="col-md-6 offset-md-3 mt-3">
+            <div class="form-group input-group d-flex justify-content-center align-items-center">
+                <a class="new-user-link">New User?</a>
+                <a [routerLink]="['/signup']" class="signup-link ml-2">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>

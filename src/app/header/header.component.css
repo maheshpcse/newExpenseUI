@@ -1,0 +1,76 @@
+body {
+  background: #e6e6ff;
+  font-family: "Encode Sans", sans-serif;
+}
+
+/* navigation bar */
+#scanfcode {
+  border-radius: 0px;
+  background: #fff;
+  padding: 10px;
+  font-size: 17px;
+}
+
+/* logo or main heading */
+#logo {
+  font-size: 20px;
+  font-weight: bolder;
+  color: #00004d;
+  letter-spacing: 2px;
+}
+
+/* navigation links*/
+#link a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #01325d;
+  margin: 0 20px 0 10px;
+  letter-spacing: 1.5px;
+}
+
+#link .nav-item {
+  cursor: pointer;
+  text-decoration: none;
+  color: #01325d;
+  letter-spacing: 1.5px;
+}
+
+#link .bg-left {
+  border-left: 2px solid #e6e6ff;
+}
+
+/* navigation link with right border */
+#first-link {
+  padding-right: 6px;
+  border-right: solid 1px #ccc;
+}
+
+/* sign up link button and toggle button */
+.button-link, #toogle-button {
+  cursor: pointer;
+  text-decoration: none;
+  color: #01325d;
+  padding: 10px;
+}
+
+.button-link:hover, .button-link a:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: white !important;
+  background-color: #fa6a48;
+}
+
+.isActive {
+  text-decoration: none;
+  color: white !important;
+  background-color: #fa6a48;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.isActive a {
+  text-decoration: none;
+  color: white !important;
+}

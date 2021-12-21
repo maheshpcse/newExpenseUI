@@ -1,0 +1,140 @@
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h5>Dynamic Menu Form</h5>
+            <hr>
+            <form [formGroup]="dynamicMenuForm">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="menutype" class="field-required">Menu Type</label>
+                        <select class="form-control" name="menutypename" id="menutypeid" formControlName="menuType"
+                            (change)="onSelectMenuType(Form.menuType?.value)" required>
+                            <option value="null" selected disabled>Select Menu Type :</option>
+                            <option value="mainmenu">Main Menu</option>
+                            <option value="submenu">Sub Menu</option>
+                            <option value="childsubmenu">Child Sub Menu</option>
+                        </select>
+                        <span class="error-msg"
+                            *ngIf="Form.menuType?.invalid && (Form.menuType?.dirty || Form.menuType?.touched)">
+                            <span *ngIf="Form?.menuType?.errors?.required">Menu type is required.</span>
+                        </span>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="menutitle" class="field-required">Title</label>
+                        <input type="text" class="form-control" name="menutitlename" id="menutitleid"
+                            formControlName="menuTitle" placeholder="Enter menu title" required>
+                        <span class="error-msg"
+                            *ngIf="Form.menuTitle?.invalid && (Form.menuTitle?.dirty || Form.menuTitle?.touched)">
+                            <span *ngIf="Form?.menuTitle?.errors?.required">Title is required.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3" *ngIf="Form.menuType?.value !== 'mainmenu'">
+                    <div class="form-group col-4"
+                        *ngIf="Form.menuType?.value === 'submenu' || Form.menuType?.value === 'childsubmenu'">
+                        <label for="mainmenu" class="field-required">Main Menu</label>
+                        <select class="form-control" name="mainmenuname" id="mainmenuid" formControlName="mainMenu"
+                            required>
+                            <option value="null" selected disabled>Select Main Menu :</option>
+                            <option value="mainmenu1">Main menu 1</option>
+                            <option value="mainmenu2">Main menu 2</option>
+                            <option value="mainmenu3">Main menu 3</option>
+                        </select>
+                        <span class="error-msg"
+                            *ngIf="Form.mainMenu?.invalid && (Form.mainMenu?.dirty || Form.mainMenu?.touched)">
+                            <span *ngIf="Form?.mainMenu?.errors?.required">Main menu is required.</span>
+                        </span>
+                    </div>
+                    <div class="form-group col-6" *ngIf="Form.menuType?.value === 'childsubmenu'">
+                        <label for="submenu" class="field-required">Sub Menu</label>
+                        <select class="form-control" name="submenuname" id="submenuid" formControlName="subMenu"
+                            required>
+                            <option value="null" selected disabled>Select Sub Menu :</option>
+                            <option value="submenu1">Sub menu 1</option>
+                            <option value="submenu2">Sub menu 2</option>
+                            <option value="submenu3">Sub menu 3</option>
+                        </select>
+                        <span class="error-msg"
+                            *ngIf="Form.subMenu?.invalid && (Form.subMenu?.dirty || Form.subMenu?.touched)">
+                            <span *ngIf="Form?.subMenu?.errors?.required">Sub menu is required.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-4">
+                        <label for="contenttype" class="field-required">Content Type</label>
+                        <br>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="contentType" id="optradioid"
+                                    value="0" formControlName="contentType"
+                                    (change)="onSelectContentType(Form.contentType?.value)" required> File
+                            </label>
+                            <label class="form-check-label ml-3">
+                                <input type="radio" class="form-check-input" name="contentType" id="optradioid"
+                                    value="1" formControlName="contentType"
+                                    (change)="onSelectContentType(Form.contentType?.value)" required> Url
+                            </label>
+                            <label class="form-check-label ml-3">
+                                <input type="radio" class="form-check-input" name="contentType" id="optradioid"
+                                    value="2" formControlName="contentType"
+                                    (change)="onSelectContentType(Form.contentType?.value)" required> Page
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-6" *ngIf="Form.contentType?.value === '0'">
+                        <label for="contentimage" class="field-required">Upload Image</label>
+                        <input type="file" class="form-control" name="contentimagename" id="contentimageid"
+                            formControlName="contentImage" required>
+                    </div>
+                    <div class="form-group col-6" *ngIf="Form.contentType?.value === '1'">
+                        <label for="contenturl" class="field-required">Title</label>
+                        <input type="text" class="form-control" name="contenturlname" id="contenturlid"
+                            formControlName="contentUrl" placeholder="Enter url" required>
+                        <span class="error-msg"
+                            *ngIf="Form.contentUrl?.invalid && (Form.contentUrl?.dirty || Form.contentUrl?.touched)">
+                            <span *ngIf="Form?.contentUrl?.errors?.required">Url is required.</span>
+                        </span>
+                    </div>
+                    <div class="form-group col-6" *ngIf="Form.contentType?.value === '2'">
+                        <label for="contentpage" class="field-required">Sub Menu</label>
+                        <select class="form-control" name="contentpagename" id="contentpageid"
+                            formControlName="contentPage" required>
+                            <option value="null" selected disabled>Select Page :</option>
+                            <option value="page1">Page 1</option>
+                            <option value="page2">Page 2</option>
+                            <option value="page3">Page 3</option>
+                        </select>
+                        <span class="error-msg"
+                            *ngIf="Form.contentPage?.invalid && (Form.contentPage?.dirty || Form.contentPage?.touched)">
+                            <span *ngIf="Form?.contentPage?.errors?.required">Page is required.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-4">
+                        <label for="statustype" class="field-required">Status</label>
+                        <select class="form-control" name="statustypename" id="statustypeid"
+                            formControlName="statusType" required>
+                            <option value="null" selected disabled>Select Status :</option>
+                            <option value="publish">Publish</option>
+                            <option value="unpublish">Unpublish</option>
+                        </select>
+                        <span class="error-msg"
+                            *ngIf="Form.statusType?.invalid && (Form.statusType?.dirty || Form.statusType?.touched)">
+                            <span *ngIf="Form?.statusType?.errors?.required">Status is required.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-3">
+                        <button class="btn btn-action-submit" type="submit" [disabled]="setMenuFormDisable()"
+                            (click)="submitMenuForm()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

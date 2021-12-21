@@ -1,0 +1,167 @@
+.fa {
+    cursor: pointer;
+}
+
+.left-side {
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+.left-view {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-profile span {
+    color: lightslategrey;
+    font-size: 1.2em;
+    letter-spacing: 1.2px;
+}
+
+.left-profile p {
+    color: lightsalmon;
+    font-size: 1em;
+    letter-spacing: 1px;
+}
+
+.btn-action-change {
+    cursor: pointer;
+    color: lightsteelblue;
+    background-color: lightgray;
+    height: 50px;
+    border: 1px dashed #ccc;
+}
+
+.btn-action-change:hover {
+    color: white;
+    background-color: #ccc;
+}
+
+.btn-action-upload {
+    cursor: pointer;
+    color: lightsteelblue;
+    background-color: lightgray;
+    height: 50px;
+    border: 1px dashed #ccc;
+}
+
+.btn-action-upload:hover {
+    color: white;
+    background-color: #ccc;
+}
+
+.btn-action-cancel {
+    cursor: pointer;
+    color: lightsteelblue;
+    background-color: lightsalmon;
+    height: 50px;
+    border: 1px dashed #ccc;
+}
+
+.btn-action-cancel:hover {
+    color: white;
+    background-color: lightcoral;
+}
+
+.right-view .title-one {
+    color: lightcoral;
+    font-size: 1.2em;
+    letter-spacing: 1.2px;
+    border-left: 2px double lightsteelblue;
+    padding-left: 10px;
+}
+
+.right-view .title-one .btn-action-edit {
+    cursor: pointer;
+    height: 35px;
+    text-align: center;
+    color: white;
+    background-color: lightgray;
+}
+
+.right-view .title-one .btn-action-edit:hover {
+    background-color: #ccc;
+}
+
+.first-row .btn-one,
+.second-row .btn-two,
+.third-row .btn-three {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    color: white;
+    background-color: lightgray;
+}
+
+.first-row .btn-one span,
+.second-row .btn-two span,
+.third-row .btn-three span {
+    font-size: 1.5em;
+}
+
+.first-row .info,
+.second-row .info,
+.third-row .info {
+    height: 50px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-row .info span,
+.second-row .info span,
+.third-row .info span {
+    color: lightsalmon;
+    font-size: 1.1em;
+    letter-spacing: 1.2px;
+}
+
+.first-row .info p,
+.second-row .info p,
+.third-row .info p {
+    color: lightsteelblue;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.edit-input input {
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 1px solid #ccc;
+    outline: none !important;
+    box-shadow: none !important;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+.btn-action-update {
+    cursor: pointer;
+    color: white !important;
+    background-color: #1668af;
+    padding: 5px;
+    width: 30px;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+.btn-action-update:hover {
+    background-color: #0d4a80;
+}
+
+.btn-action-update span {
+    color: white !important;
+}
+
+.btn-action-close {
+    cursor: pointer;
+    color: crimson !important;
+    background-color: #ccc;
+    padding: 5px;
+    width: 30px;
+}
+
+.btn-action-close:hover {
+    background-color: #999;
+}

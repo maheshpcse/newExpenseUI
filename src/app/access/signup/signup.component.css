@@ -1,0 +1,91 @@
+.signup-title {
+    color: lightsalmon;
+    font-size: 1.2em;
+    letter-spacing: 2px;
+}
+
+input {
+    height: 60px;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 1px solid #ccc;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.name-input, .user-input, .email-input, .password-input {
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+.btn-action-name, .btn-action-user, .btn-action-email, .btn-action-pwd {
+    height: 60px;
+    width: 60px;
+    color: white;
+    background-color: lightsalmon;
+    text-align: center;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+.btn-action-name .fa, .btn-action-user .fa, .btn-action-email .fa, .btn-action-pwd .fa {
+    font-size: 2em;
+}
+
+.btn-action-signup {
+    font-size: 1.2em;
+    text-align: center;
+    height: 60px;
+    color: white;
+    background-color: lightsalmon;
+}
+
+.btn-action-signup:hover {
+    color: white;
+    background-color: tomato;
+}
+
+.forgot-pwd-link {
+    font-size: 1em;
+    color: tomato;
+    letter-spacing: 1.5px;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.forgot-pwd-link:hover {
+    color: lightsalmon;
+    opacity: 0.5;
+}
+
+.already-user {
+    font-size: 1em;
+    color: lightsalmon;
+    letter-spacing: 1px;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.login-link {
+    font-size: 1em;
+    color: tomato;
+    letter-spacing: 2px;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.login-link:hover {
+    color: lightsalmon;
+    opacity: 0.5;
+}
+
+.error-msg {
+    color: tomato;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
