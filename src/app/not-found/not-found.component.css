@@ -1,26 +1,94 @@
-h5 {
-    color: #999;
-    font-size: 1.2em;
-    font-weight: 600;
+.menu-form {
+  border-right: 1px solid #ccc;
 }
 
-.field-required::after{
-    content: " *";
-    color: crimson;
+h5 {
+  color: #999;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.field-required::after {
+  content: " *";
+  color: crimson;
 }
 
 .error-msg {
-    color: crimson;
-    font-size: 0.7em;
+  color: crimson;
+  font-size: 0.7em;
 }
 
 .btn-action-submit {
-    cursor: pointer;
-    color: white;
-    background-color: #1667af;
-    padding: 10px;
+  cursor: pointer;
+  color: white;
+  background-color: #1667af;
+  padding: 10px;
 }
 
 .btn-action-submit:hover {
-    background-color: #1668af;
+  background-color: #1668af;
+}
+
+.menu-table thead {
+  color: white;
+  background-color: lightsteelblue;
+}
+
+.menu-table tbody .url-view {
+  cursor: pointer;
+  color: #1667af !important;
+}
+
+.menu-table tbody .file-view {
+  cursor: pointer;
+  color: #ccc;
+}
+
+.menu-table tbody .badge {
+  font-size: 14px;
+  font-weight: lighter;
+  padding: 5px;
+  width: 100px;
+}
+
+.menu-accordion .btn-link {
+  color: #1667af;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.menu-accordion .btn-link span {
+  color: #a3a3a3;
+  font-size: 0.7em;
+  text-decoration: none;
+}
+
+.menu-accordion .menu-action button, .fa {
+  cursor: pointer;
+}
+
+.menu-accordion .menu-action button {
+  color: white;
+  background-color: #ccc;
+  border: 1px solid white;
+}
+
+.menu-accordion .menu-action button:hover {
+  background-color: #a3a3a3; 
+}
+
+.menu-accordion .menu-action .fa-angle-down, .fa-angle-up {
+  color: #ccc;
+  font-size: 1.5em;
+}
+
+.menu-accordion .btn-action-viewsub {
+  cursor: pointer;
+  color: white;
+  background-color: #e3e3e3;
+  padding: 5px;
+}
+
+.menu-accordion .btn-action-viewsub:hover {
+  background-color: #ccc;
 }

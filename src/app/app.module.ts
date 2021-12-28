@@ -32,6 +32,8 @@ import { ManageGroupsComponent } from './user/manage-groups/manage-groups.compon
 import { ManageFriendsComponent } from './user/manage-friends/manage-friends.component';
 import { UserActivitiesComponent } from './user/user-activities/user-activities.component';
 import { ProfileViewComponent } from './access/profile-view/profile-view.component';
+import { DataTruncatePipe } from './app-services/data-truncate.pipe';
+import { DataTransferPipe } from './app-services/data-transfer.pipe';
 
 const firebaseConfig = {
   // apiKey: 'AIzaSyAYjm_2DYyF6Aa-NRjRLOZGBNg6ZAcCTd0',
@@ -66,7 +68,9 @@ const firebaseConfig = {
     ManageGroupsComponent,
     ManageFriendsComponent,
     UserActivitiesComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    DataTruncatePipe,
+    DataTransferPipe
   ],
   imports: [
     BrowserModule,

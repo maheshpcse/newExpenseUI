@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user/user.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import * as _ from 'underscore';
+declare var $: any;
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
@@ -22,8 +23,22 @@ export class NotFoundComponent implements OnInit {
   prizesList: any = [];
   tempPrizesList: any = [];
 
-  // dynamic menu form variables
+  // dynamic menu form and dynamic menu table variables
   dynamicMenuForm: FormGroup;
+  dynamicMenuList: any = [
+    {mainMenuId: 1, menuType: 'Main Menu', menuTitle: 'Admissions', contentType: 'Url', contentValue: 'http:tjohncollege.com/admissions', status: 1},
+    {mainMenuId: 1, subMenuId: 1, menuType: 'Sub Menu', menuTitle: 'Diploma Courses', contentType: 'Page', contentValue: 'Page One', status: 1},
+    {mainMenuId: 1, subMenuId: 2, menuType: 'Sub Menu', menuTitle: 'PG Courses', contentType: 'Page', contentValue: 'Page Two', status: 0},
+    {mainMenuId: 1, subMenuId: 1, childSubMenuId: 1, menuType: 'Child Sub Menu', menuTitle: 'MBA Courses', contentType: 'File', contentValue: 'mba_course_details.pdf', status: 0},
+    {mainMenuId: 2, menuType: 'Main Menu', menuTitle: 'Students', contentType: 'Url', contentValue: 'http:tjohncollege.com/students', status: 1},
+    {mainMenuId: 2, subMenuId: 3, menuType: 'Sub Menu', menuTitle: 'Student Login', contentType: 'Page', contentValue: 'Page One', status: 1},
+    {mainMenuId: 2, subMenuId: 4, menuType: 'Sub Menu', menuTitle: 'College E-Mail ID', contentType: 'Page', contentValue: 'Page Two', status: 0},
+    {mainMenuId: 2, subMenuId: 3, childSubMenuId: 1, menuType: 'Child Sub Menu', menuTitle: 'Terms Login Guidelines', contentType: 'File', contentValue: 'terms_login_guidelines.pdf', status: 0},
+  ];
+  tempdynamicMenuList: any = [];
+  selectMenuIndex: any = [];
+  selectSubMenuIndex: any = [];
+  selectChildSubMenuIndex: any = [];
 
   constructor(
     public userService: UserService,
@@ -32,6 +47,9 @@ export class NotFoundComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
     // this.getNobelPrizesList();
     this.dynamicMenuForm = this.fb.group({
       menuType: new FormControl(null, [Validators.required]),
@@ -44,9 +62,92 @@ export class NotFoundComponent implements OnInit {
       contentPage: new FormControl(null, [Validators.required]),
       statusType: new FormControl(null, [Validators.required])
     });
+    this.getDynamicMenuList();
   }
 
-  // dynamic menu form functionalities
+  // dynamic menu form and get menu list functionalities
+  getDynamicMenuList() {
+    this.tempdynamicMenuList = [...this.dynamicMenuList];
+    const copyDynamicMenuList = [...this.dynamicMenuList];
+    const filterDynamicMenuList = _.filter(copyDynamicMenuList, (ele: any) => {
+      return ele.menuType === 'Main Menu';
+    });
+    for (const main of filterDynamicMenuList) {
+      main['subMenuList'] = [];
+      this.selectMenuIndex.push(false);
+    }
+    this.dynamicMenuList = filterDynamicMenuList;
+    console.log('Final dynamic menu list isss', this.dynamicMenuList);
+  }
+
+  getDynamicSubMenuList(item?: any, index?: any) {
+    console.log('Selected main menu item isss', item, index);
+    item['subMenuList'] = [];
+    const copyDynamicMenuList = [...this.tempdynamicMenuList];
+    const filterDynamicMenuList = _.filter(copyDynamicMenuList, (ele: any) => {
+      return ele.mainMenuId === Number(item.mainMenuId) && ele.menuType === 'Sub Menu';
+    });
+    item['subMenuList'] = filterDynamicMenuList;
+    for (const sub of item['subMenuList']) {
+      sub['childSubMenuList'] = [];
+      this.selectSubMenuIndex.push(false);
+    }
+    console.log('Final dynamic sub menu list isss', item['subMenuList']);
+  }
+
+  getDynamicChildSubMenuList(item?: any, index?: any) {
+    console.log('Selected sub menu item isss', item, index);
+    item['childSubMenuList'] = [];
+    const copyDynamicMenuList = [...this.tempdynamicMenuList];
+    const filterDynamicMenuList = _.filter(copyDynamicMenuList, (ele: any) => {
+      return ele.subMenuId === Number(item.subMenuId) && ele.menuType === 'Child Sub Menu';
+    });
+    item['childSubMenuList'] = filterDynamicMenuList;
+    for (const sub of item['childSubMenuList']) {
+      this.selectChildSubMenuIndex.push(false);
+    }
+    console.log('Final dynamic child sub menu list isss', item['childSubMenuList']);
+  }
+
+  changeMenuIcon(index?: any) {
+    let id: any = 0;
+    for (const item of this.selectMenuIndex) {
+      if (id === index) {
+        this.selectMenuIndex[id] = !this.selectMenuIndex[id];
+      } else {
+        this.selectMenuIndex[id] = false;
+      }
+      id += 1;
+    }
+    console.log('selectMenuIndex isss', this.selectMenuIndex);
+  }
+
+  changeSubMenuIcon(index?: any) {
+    let id: any = 0;
+    for (const item of this.selectSubMenuIndex) {
+      if (id === index) {
+        this.selectSubMenuIndex[id] = !this.selectSubMenuIndex[id];
+      } else {
+        this.selectSubMenuIndex[id] = false;
+      }
+      id += 1;
+    }
+    console.log('selectSubMenuIndex isss', this.selectSubMenuIndex);
+  }
+
+  changeChildSubMenuIcon(index?: any) {
+    let id: any = 0;
+    for (const item of this.selectChildSubMenuIndex) {
+      if (id === index) {
+        this.selectChildSubMenuIndex[id] = !this.selectChildSubMenuIndex[id];
+      } else {
+        this.selectChildSubMenuIndex[id] = false;
+      }
+      id += 1;
+    }
+    console.log('selectChildSubMenuIndex isss', this.selectChildSubMenuIndex);
+  }
+
   get Form() {
     return this.dynamicMenuForm.controls;
   }

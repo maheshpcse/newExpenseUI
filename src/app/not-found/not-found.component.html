@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-md-6">
+        <div class="col-md-6 menu-form" *ngIf="false">
             <h5>Dynamic Menu Form</h5>
             <hr>
             <form [formGroup]="dynamicMenuForm">
@@ -88,7 +88,7 @@
                             formControlName="contentImage" required>
                     </div>
                     <div class="form-group col-6" *ngIf="Form.contentType?.value === '1'">
-                        <label for="contenturl" class="field-required">Title</label>
+                        <label for="contenturl" class="field-required">Url</label>
                         <input type="text" class="form-control" name="contenturlname" id="contenturlid"
                             formControlName="contentUrl" placeholder="Enter url" required>
                         <span class="error-msg"
@@ -97,7 +97,7 @@
                         </span>
                     </div>
                     <div class="form-group col-6" *ngIf="Form.contentType?.value === '2'">
-                        <label for="contentpage" class="field-required">Sub Menu</label>
+                        <label for="contentpage" class="field-required">Page</label>
                         <select class="form-control" name="contentpagename" id="contentpageid"
                             formControlName="contentPage" required>
                             <option value="null" selected disabled>Select Page :</option>
@@ -135,6 +135,341 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="col-md-6" *ngIf="false">
+            <h5>Dynamic Menu List</h5>
+            <hr>
+            <table class="table table-light table-borderless table-hover menu-table">
+                <thead>
+                    <tr>
+                        <th>Menu Type</th>
+                        <th>Menu Title</th>
+                        <th>Content Type</th>
+                        <th>Content Value</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of dynamicMenuList; let i=index;">
+                        <td>{{ item.menuType }}</td>
+                        <td>{{ item.menuTitle }}</td>
+                        <td>{{ item.contentType }}</td>
+                        <td>
+                            <span class="d-flex justify-content-start align-items-center file-view"
+                                data-toggle="tooltip" data-placement="bottom" [attr.title]="item.contentValue"
+                                *ngIf="item.contentType === 'File'">
+                                <i class="fa fa-file-pdf-o"></i>
+                                <u class="ml-2">{{ item.contentValue | dataTruncate }}</u>
+                            </span>
+                            <span class="d-flex justify-content-start align-items-center url-view" data-toggle="tooltip"
+                                data-placement="bottom" [attr.title]="item.contentValue"
+                                *ngIf="item.contentType === 'Url'">
+                                <i class="fa fa-globe"></i>
+                                <a href="{{ item.contentValue }}" target="blank" class="ml-2">{{ item.contentValue |
+                                    dataTruncate }}</a>
+                            </span>
+                            <span class="d-flex justify-content-start align-items-center page-view"
+                                data-toggle="tooltip" data-placement="bottom" [attr.title]="item.contentValue"
+                                *ngIf="item.contentType === 'Page'">
+                                <i class="fa fa-caret-square-o-down"></i>
+                                <strong class="ml-2">{{ item.contentValue | dataTruncate }}</strong>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge badge-success" *ngIf="item.status === 1">Published</span>
+                            <span class="badge badge-secondary" *ngIf="item.status === 0">UnPublished</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <h5>Dynamic Menu List</h5>
+            <hr>
+            <!-- Main Menu Accordion Starts -->
+            <div class="accordion menu-accordion" id="mainMenuAccordion">
+                <div class="card" *ngFor="let main of dynamicMenuList; let i=index;">
+                    <div class="card-header d-flex justify-content-between align-items-center"
+                        [attr.id]="'headingOne'+i">
+                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                [attr.data-target]="'#collapseOne'+i" aria-expanded="true"
+                                [attr.aria-controls]="'collapseOne'+i"
+                                (click)="changeMenuIcon(i)">
+                                {{ main.menuTitle }} <span class="ml-2">{{ main.menuType }}</span>
+                            </button>
+                        </div>
+                        <div class="mb-0 d-flex justify-content-between align-items-center menu-action">
+                            <div class="btn-group mr-3" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary">
+                                    <span><i class="fa fa-pencil-square-o"></i></span>
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    <span><i class="fa fa-trash-o"></i></span>
+                                </button>
+                            </div>
+                            <span *ngIf="!selectMenuIndex[i]"><i class="fa fa-angle-down"></i></span>
+                            <span *ngIf="selectMenuIndex[i]"><i class="fa fa-angle-up"></i></span>
+                        </div>
+                    </div>
+                    <div [attr.id]="'collapseOne'+i" class="collapse" [attr.aria-labelledby]="'headingOne'+i"
+                        data-parent="#mainMenuAccordion">
+                        <!-- [ngClass]="{'show': i === 0}" -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <table class="table table-borderless table-light">
+                                        <tbody>
+                                            <tr>
+                                                <th>Menu Type</th>
+                                                <td>:</td>
+                                                <td>{{ main.menuType }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Title</th>
+                                                <td>:</td>
+                                                <td>{{ main.menuTitle }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td>:</td>
+                                                <td>
+                                                    <span class="badge badge-success ml-2" *ngIf="main.status === 1">
+                                                        Published
+                                                    </span>
+                                                    <span class="badge badge-secondary ml-2" *ngIf="main.status === 0">
+                                                        UnPublished
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table class="table table-borderless table-light">
+                                        <tbody>
+                                            <tr>
+                                                <th>Content Type</th>
+                                                <td>:</td>
+                                                <td>
+                                                    <mark>{{ main.contentType }}</mark>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Content Value</th>
+                                                <td>:</td>
+                                                <td>
+                                                    <a href="{{ main.contentValue }}">{{ main.contentValue }}</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-action-viewsub" (click)="getDynamicSubMenuList(main, i)">
+                                    <i class="fa fa-table"></i><span class="ml-2">View Sub Menu</span>
+                                </button>
+                            </div>
+                            <!-- Sub Menu Accordion Starts -->
+                            <div class="accordion menu-accordion" id="subMenuAccordion"
+                                *ngIf="main?.subMenuList?.length > 0">
+                                <div class="card" *ngFor="let sub of main.subMenuList; let j=index;">
+                                    <div class="card-header d-flex justify-content-between align-items-center"
+                                        [attr.id]="'headingTwo'+j">
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <button class="btn btn-link btn-block text-left" type="button"
+                                                data-toggle="collapse" [attr.data-target]="'#collapseTwo'+j"
+                                                aria-expanded="true" [attr.aria-controls]="'collapseTwo'+j"
+                                                (click)="changeSubMenuIcon(j)">
+                                                {{ sub.menuTitle }} <span class="ml-2">{{ sub.menuType }}</span>
+                                            </button>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center menu-action">
+                                            <div class="btn-group mr-3" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-secondary">
+                                                    <span><i class="fa fa-pencil-square-o"></i></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <span><i class="fa fa-trash-o"></i></span>
+                                                </button>
+                                            </div>
+                                            <span *ngIf="!selectSubMenuIndex[j]"><i class="fa fa-angle-down"></i></span>
+                                            <span *ngIf="selectSubMenuIndex[j]"><i class="fa fa-angle-up"></i></span>
+                                        </div>
+                                    </div>
+                                    <div [attr.id]="'collapseTwo'+j" class="collapse"
+                                        [attr.aria-labelledby]="'headingTwo'+j" data-parent="#subMenuAccordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <table class="table table-borderless table-light">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Menu Type</th>
+                                                                <td>:</td>
+                                                                <td>{{ sub.menuType }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Title</th>
+                                                                <td>:</td>
+                                                                <td>{{ sub.menuTitle }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Status</th>
+                                                                <td>:</td>
+                                                                <td>
+                                                                    <span class="badge badge-success ml-2"
+                                                                        *ngIf="sub.status === 1">
+                                                                        Published
+                                                                    </span>
+                                                                    <span class="badge badge-secondary ml-2"
+                                                                        *ngIf="sub.status === 0">
+                                                                        UnPublished
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-6">
+                                                    <table class="table table-borderless table-light">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Content Type</th>
+                                                                <td>:</td>
+                                                                <td>
+                                                                    <mark>{{ sub.contentType }}</mark>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Content Value</th>
+                                                                <td>:</td>
+                                                                <td>
+                                                                    <a href="{{ sub.contentValue }}">{{ sub.contentValue
+                                                                        }}</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-action-viewsub" (click)="getDynamicChildSubMenuList(sub, j)">
+                                                    <i class="fa fa-table"></i><span class="ml-2">View Child Sub Menu</span>
+                                                </button>
+                                            </div>
+                                            <!-- Child Sub Menu Accordion Starts -->
+                                            <div class="accordion menu-accordion" id="childSubMenuAccordion"
+                                                *ngIf="sub?.childSubMenuList?.length > 0">
+                                                <div class="card"
+                                                    *ngFor="let child of sub.childSubMenuList; let k=index;">
+                                                    <div class="card-header d-flex justify-content-between align-items-center"
+                                                        [attr.id]="'headingThree'+j">
+                                                        <div
+                                                            class="mb-0 d-flex justify-content-between align-items-center">
+                                                            <button class="btn btn-link btn-block text-left"
+                                                                type="button" data-toggle="collapse"
+                                                                [attr.data-target]="'#collapseThree'+k"
+                                                                aria-expanded="true"
+                                                                [attr.aria-controls]="'collapseThree'+k"
+                                                                (click)="changeChildSubMenuIcon(k)">
+                                                                {{ child.menuTitle }} <span class="ml-2">{{
+                                                                    child.menuType }}</span>
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            class="mb-0 d-flex justify-content-between align-items-center menu-action">
+                                                            <div class="btn-group mr-3" role="group"
+                                                                aria-label="Basic example">
+                                                                <button type="button" class="btn btn-secondary">
+                                                                    <span><i class="fa fa-pencil-square-o"></i></span>
+                                                                </button>
+                                                                <button type="button" class="btn btn-secondary">
+                                                                    <span><i class="fa fa-trash-o"></i></span>
+                                                                </button>
+                                                            </div>
+                                                            <span *ngIf="!selectChildSubMenuIndex[k]"><i
+                                                                    class="fa fa-angle-down"></i></span>
+                                                            <span *ngIf="selectChildSubMenuIndex[k]"><i
+                                                                    class="fa fa-angle-up"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div [attr.id]="'collapseThree'+k" class="collapse"
+                                                        [attr.aria-labelledby]="'headingThree'+k"
+                                                        data-parent="#childSubMenuAccordion">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <table class="table table-borderless table-light">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th>Menu Type</th>
+                                                                                <td>:</td>
+                                                                                <td>{{ child.menuType }}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>Title</th>
+                                                                                <td>:</td>
+                                                                                <td>{{ child.menuTitle }}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>Status</th>
+                                                                                <td>:</td>
+                                                                                <td>
+                                                                                    <span
+                                                                                        class="badge badge-success ml-2"
+                                                                                        *ngIf="child.status === 1">
+                                                                                        Published
+                                                                                    </span>
+                                                                                    <span
+                                                                                        class="badge badge-secondary ml-2"
+                                                                                        *ngIf="child.status === 0">
+                                                                                        UnPublished
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <table class="table table-borderless table-light">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th>Content Type</th>
+                                                                                <td>:</td>
+                                                                                <td>
+                                                                                    <mark>{{ child.contentType }}</mark>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>Content Value</th>
+                                                                                <td>:</td>
+                                                                                <td>
+                                                                                    <a href="{{ child.contentValue }}">{{
+                                                                                        child.contentValue
+                                                                                        }}</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Child Sub Menu Accordion Ends -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sub Menu Accordion Ends -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Menu Accordion Ends -->
         </div>
     </div>
 </div>
