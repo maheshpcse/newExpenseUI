@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   userPassword: any = null;
   @ViewChild('emailname', { static: false }) emailnameRef: NgModel;
   @ViewChild('pwdname', { static: false }) pwdnameRef: NgModel;
+  spinner: any = false;
 
   constructor(
     public router: Router,
@@ -30,11 +31,13 @@ export class LoginComponent implements OnInit {
     if (this.setLoginFormValidation()) {
       return this.toastr.errorToastr('Please fill the required fields.');
     }
+    this.spinner = true;
     const userLoginPayload = {
       email: this.userEmail,
       password: this.userPassword
     };
     console.log('Post paylod to get user login data isss', userLoginPayload);
+    
     this.authUserService.getUserLogin(userLoginPayload).subscribe(async (response: any) => {
       console.log('Get user login data response isss', response);
       if (!response || response.length === 0) {
@@ -53,9 +56,11 @@ export class LoginComponent implements OnInit {
         }
         this.router.navigate(['/profile']);
       }
+      this.spinner = false;
     }, (error: any) => {
       console.log('Error while get user login data', error);
       this.toastr.errorToastr('Network failed, Please try again.');
+      this.spinner = false;
     });
   }
 

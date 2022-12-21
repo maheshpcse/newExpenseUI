@@ -106,7 +106,26 @@ export class AuthUserService {
     );
   }
 
+  getUserDetails(body?: any) {
+    return this.ngFireStore.collection<User>('UserData', ref => ref.where('email', '==', body.email)).snapshotChanges().pipe(
+      map((actions) => actions.map((a) => {
+          const data = a.payload.doc.data() as User;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
+  }
+
   updateUserInfo(data?: any) {
+    return this.ngFireStore.doc('UserData/' + data.user_id).update(data);
+  }
+
+  sendOTPToUserMail(data?: any) {
+    return this.http.post(APIURL.SEND_OTP_TO_USER_MAIL, data);
+  }
+
+  updateUserPassword(data?: any) {
     return this.ngFireStore.doc('UserData/' + data.user_id).update(data);
   }
 

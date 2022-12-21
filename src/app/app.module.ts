@@ -11,6 +11,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+// import { NgOtpInputModule } from  'ng-otp-input';
+// import { NgxOtpInputModule } from 'ngx-otp-input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthUserService } from './api-services/auth-user.service';
@@ -34,6 +36,7 @@ import { UserActivitiesComponent } from './user/user-activities/user-activities.
 import { ProfileViewComponent } from './access/profile-view/profile-view.component';
 import { DataTruncatePipe } from './app-services/data-truncate.pipe';
 import { DataTransferPipe } from './app-services/data-transfer.pipe';
+import { ForgotPasswordComponent } from './access/forgot-password/forgot-password.component';
 
 const firebaseConfig = {
   // apiKey: 'AIzaSyAYjm_2DYyF6Aa-NRjRLOZGBNg6ZAcCTd0',
@@ -70,7 +73,8 @@ const firebaseConfig = {
     UserActivitiesComponent,
     ProfileViewComponent,
     DataTruncatePipe,
-    DataTransferPipe
+    DataTransferPipe,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +91,9 @@ const firebaseConfig = {
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireDatabaseModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    // NgOtpInputModule,
+    // NgxOtpInputModule
   ],
   providers: [
     AuthUserService,

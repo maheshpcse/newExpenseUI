@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 form-field">
             <div class="form-group input-group d-flex align-items-center">
                 <input type="text" class="form-control email-input" name="emailname" id="emailid" placeholder="Type email" minlength="1" maxlength="50" autocomplete="off" [(ngModel)]="userEmail" #emailname="ngModel" required>
                 <button class="btn btn-action-email" type="button">
@@ -17,7 +17,7 @@
                 <span *ngIf="emailname?.errors.required">Email is required.</span>
             </span>
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 form-field mt-4">
             <div class="form-group input-group d-flex align-items-center">
                 <input type="password" class="form-control password-input" name="pwdname" id="pwdid" placeholder="Type password" minlength="1" maxlength="50" autocomplete="off" [(ngModel)]="userPassword" #pwdname="ngModel" required>
                 <button class="btn btn-action-pwd" type="button">
@@ -28,13 +28,15 @@
                 <span *ngIf="pwdname?.errors.required">Password is required.</span>
             </span>
         </div>
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 mt-4">
             <div class="form-group input-group d-flex justify-content-between align-items-center">
-                <button class="btn btn-action-login" type="submit" [disabled]="setLoginFormValidation()" (click)="userLoginData()">
-                    <span><i class="fa fa-sign-in" aria-hidden="false"></i></span>
-                    <span class="ml-2">Login</span>
+                <button class="btn btn-action-login" type="submit" [disabled]="setLoginFormValidation() || spinner" (click)="userLoginData()">
+                    <span *ngIf="!spinner"><i class="fa fa-sign-in" aria-hidden="false"></i></span>
+                    <span *ngIf="!spinner" class="ml-2">Login</span>
+                    <span *ngIf="spinner"><i class="fa fa-spinner fa-spin" aria-hidden="false"></i></span>
+                    <span *ngIf="spinner" class="ml-2">Logging in...</span>
                 </button>
-                <a class="forgot-pwd-link">Forgot Password?</a>
+                <a class="forgot-pwd-link" [routerLink]="['/forgot-password']">Forgot Password?</a>
             </div>
         </div>
         <div class="col-md-6 offset-md-3 mt-3">

@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   @ViewChild('emailname', { static: false }) emailnameRef: NgModel;
   @ViewChild('pwdname', { static: false }) pwdnameRef: NgModel;
   @ViewChild('confirmpwdname', { static: false }) confirmpwdnameRef: NgModel;
+  spinner: any = false;
 
   constructor(
     public router: Router,
@@ -35,6 +36,7 @@ export class SignupComponent implements OnInit {
     if (this.setSignupFormValidation()) {
       return this.toastr.errorToastr('Please fill the required fields.');
     }
+    this.spinner = true;
     const userSignupPayload = {
       user_id: null,
       firstname: this.fullName,
@@ -54,6 +56,7 @@ export class SignupComponent implements OnInit {
       updated_at: new Date()
     };
     console.log('Post paylod to get user singup data isss', userSignupPayload);
+    
     this.authUserService.addNewUser(userSignupPayload).then(async (response: any) => {
       console.log('Get user singup data response isss', response);
       if (response && response.success) {
@@ -63,9 +66,11 @@ export class SignupComponent implements OnInit {
       } else {
         this.toastr.successToastr(response.message);
       }
+      this.spinner = false;
     }).catch((error: any) => {
       console.log('Error while get user signup data', error);
       this.toastr.errorToastr('Network failed, Please try again.');
+      this.spinner = false;
     });
   }
 

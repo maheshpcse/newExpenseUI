@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './access/login/login.component';
 import { AuthGuardService } from './api-services/auth-guard.service';
 import { SignupComponent } from './access/signup/signup.component';
+import { ForgotPasswordComponent } from './access/forgot-password/forgot-password.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProfileViewComponent } from './access/profile-view/profile-view.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
   },
   {
     path: 'profile',
